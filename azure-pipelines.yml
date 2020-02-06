@@ -33,7 +33,7 @@ resources:
       endpoint: julie-ng # service connection
 
 schedules:
-  - tempate: devops/schedule-weekly.yml@templates
+  - template: devops/schedule-weekly.yml@templates
 
 # ---------
 # Variables
