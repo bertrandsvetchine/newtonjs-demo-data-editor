@@ -88,16 +88,12 @@ stages:
       - job: build_and_deploy
         displayName: Build Docker and Push
         steps:
-          - template: devops/steps-set-build-sha.yml@templates
+          - template: devops/steps-set-build-sha.yml@templates # sets `$(build-sha)`
           - template: devops/steps-docker-build-push.yml@templates
             parameters:
               devTag: $(dev-tag)
-              snapshotTag: $(snapshot-tag)
-
-          - task: AzureWebAppContainer@1
-            displayName: "App Service: deploy container"
-            condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master')) # (master branch and succesful builds only)
-            inputs:
-              appName: $(pipeline-app-name) # var set in pipeline
-              azureSubscription: $(newton-service-connection)
-              imageName: $(snapshot-tag)-$(build-sha)
+              snapshotTag: $(snapshot-tag)-$(build-sha)
+          - template: devops/steps-deploy-app-service.yml@templates
+            parameters:
+              appName: $(pipeline-app-name)
+              dockerImage: $(snapshot-tag)-$(build-sha)
