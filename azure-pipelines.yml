@@ -1,29 +1,29 @@
-# Build numbering format
-name: $(BuildID)
+# # Build numbering format
+# name: $(BuildID)
 
-trigger:
-  - master
-  - feat/*
+# trigger:
+#   - master
+#   - feat/*
 
-pool:
-  vmImage: "ubuntu-latest"
+# pool:
+#   vmImage: "ubuntu-latest"
 
-# ---------
-# Schedule
-# ---------
+# # ---------
+# # Schedule
+# # ---------
 
-schedules:
-  - cron: "0 0 * * Mon"
-    displayName: Weekly midnight build
-    always: true
-    branches:
-      include:
-        - master
-        - releases/*
+# schedules:
+#   - cron: "0 0 * * Mon"
+#     displayName: Weekly midnight build
+#     always: true
+#     branches:
+#       include:
+#         - master
+#         - releases/*
 
-# ------------
-# Shared Tasks
-# ------------
+# ----------------
+# Shared Templates
+# ----------------
 
 resources:
   repositories:
@@ -31,6 +31,9 @@ resources:
       type: github
       name: julie-ng/newtonjs-azure-templates
       endpoint: julie-ng # service connection
+
+extends:
+  template: devops/pipeline-base.yml@templates
 
 # ---------
 # Variables
