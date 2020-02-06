@@ -97,3 +97,4 @@ stages:
             parameters:
               appName: $(pipeline-app-name)
               dockerImage: $(snapshot-tag)-$(build-sha)
+              condition: always()
