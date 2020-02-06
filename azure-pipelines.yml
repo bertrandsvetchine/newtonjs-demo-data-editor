@@ -30,6 +30,7 @@ resources:
     - repository: templates
       type: github
       name: julie-ng/newtonjs-azure-templates
+      endpoint: julie-ng # service connection
 
 # ---------
 # Variables
