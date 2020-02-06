@@ -8,20 +8,20 @@ trigger:
 pool:
   vmImage: "ubuntu-latest"
 
-# # ---------
-# # Schedule
-# # ---------
 
-# schedules:
-#   - cron: "0 0 * * Mon"
-#     displayName: Weekly midnight build
-#     always: true
-#     branches:
-#       include:
-#         - master
-#         - releases/*
+# Schedule
+# ---------
 
-# ----------------
+schedules:
+  - cron: "0 0 * * Mon"
+    displayName: Weekly midnight build
+    always: true
+    branches:
+      include:
+        - master
+        - releases/*
+
+
 # Shared Templates
 # ----------------
 
@@ -32,10 +32,7 @@ resources:
       name: julie-ng/newtonjs-azure-templates
       endpoint: julie-ng # service connection
 
-schedules:
-  - template: devops/schedule-weekly.yml@templates
 
-# ---------
 # Variables
 # ---------
 
@@ -59,18 +56,12 @@ variables:
   - name: dev-tag
     value: $(docker-image):dev
 
-# ------
 # Stages
 # ------
-
-# extends:
-#   template: devops/pipeline-base.yml@templates
 
 stages:
 
   # Tests
-  # -----
-
   - stage: Tests
     displayName: "Test (Node.js)"
     jobs:
@@ -86,8 +77,6 @@ stages:
             displayName: Lint Code
 
   # Docker: Build and Push
-  # ----------------------
-
   - stage: BuildAndDeploy
     displayName: "Build and Deploy"
     jobs:
