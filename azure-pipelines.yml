@@ -1,12 +1,12 @@
-# # Build numbering format
-# name: $(BuildID)
+# Build numbering format
+name: $(BuildID)
 
-# trigger:
-#   - master
-#   - feat/*
+trigger:
+  - master
+  - feat/*
 
-# pool:
-#   vmImage: "ubuntu-latest"
+pool:
+  vmImage: "ubuntu-latest"
 
 # # ---------
 # # Schedule
@@ -32,8 +32,8 @@ resources:
       name: julie-ng/newtonjs-azure-templates
       endpoint: julie-ng # service connection
 
-extends:
-  template: devops/pipeline-base.yml@templates
+schedules:
+  - tempate: devops/schedule-weekly.yml@templates
 
 # ---------
 # Variables
@@ -62,6 +62,9 @@ variables:
 # ------
 # Stages
 # ------
+
+# extends:
+#   template: devops/pipeline-base.yml@templates
 
 stages:
 
